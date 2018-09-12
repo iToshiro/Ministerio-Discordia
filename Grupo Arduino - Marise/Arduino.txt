@@ -1,0 +1,27 @@
+int pinoSensor = 0;
+int valorLido = 0;
+float temperatura = 0;
+int linha = 0;
+
+void setup(){
+  serial.begin(9600);
+  serial.println("CLEARDATA");
+serial.println("LABEL,Hora, temperatura, linha");
+}
+void loop(){
+  valorLido = analogRead(pinoSensor);
+  temperatura = (valorLido * 0.00488);
+  temperatura = temperatura * 100;
+  linha++;
+  serial.print("DATA, TIME, ");
+  serial.print(temperatura);
+  serial.print(",");
+  serial.println(linha);
+
+  if(linha > 100)
+  {
+    linha + 0;
+    serial.println("ROW,SET,2");
+  }
+  delay(1000);
+}
